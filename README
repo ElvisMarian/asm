@@ -1,0 +1,38 @@
+otp:
+Parcurg textul de la sfarsit catre inceput.
+Fac xor intre litera si cheie.
+Acel -1 pe care il am provine de la faptul ca vectorii pornesc de la 0,iar loop-ul se opreste cand ajunge la 0.
+Rezultatul il pun in edx
+
+caesar:
+Parcurg string-ul de la dreapta la stanga.Ma uit daca acel caracter este in intervalul 65-90,iar daca e inseamna ca acel caracter este litera mare.
+Daca caracterul e in intervalul 97-122 inseamna ca este litera mica.
+Daca nu e in niciunul din aceste intervale atunci pun caracterul in edx.
+Caracterele sunt puse tot de la stanga la dreapta.
+Dupa ce am selectat caracterul adaug cheia si verific daca noul rezultat e inca in interval.Daca este il pun in edx,iar daca nu este ii aplic o coresctare scazand iterativ 26 pana cand aduc caracterul rezultat in intervalul corespunzator(daca e litera mica in 97-122 ,daca e litera mare in 65-90).
+Dupa ce am facut corectia pun rezultatul in edx.
+
+vigenere:
+Am folosit cod de la caesar.Am parcurs textul si cheia (ambele de la stanga catre dreapta)in acelasi timp folosind doi counteri(index_key si index_text) folosind ecx-ul ca si intermediar.
+Caracterul din cheie il scadeam cu 'A'(65) si obtineam deplasamentul pe care il aveam de facut asupra caracterului din text.
+La fel ca si la taskul 2 am separat literele mici si mari.Verificam daca caracterul din text este litera mare sau mica(intervalele 65-90 si 97-122).Daca nu era il puneam in edx.
+Daca era litera mare sau mica ii aplicam deplasamentul dupa care verificam daca am ramas in interval sau nu.Daca ieseam din interval aplicam corectia scazand succesiv 26 pana cand reveneam in interval,dupa care afisam.Verificam indecsul cheii,iar daca acesta ajungea la final il resetam si continuam.
+
+strstr:
+Folosesc ecx si doi counteri (index_text pt text si index_str pentru subsir).
+Le parcurg pe ambele in paralel si daca gasesc vreo compatibilitate atunci
+setez variabila found cu index_text-ul la care s-a gasit compatibilitatea.Cresc si indexul pentru subsir si continui sa iterez.Daca o pereche nu e compatibila setez indexul pentru subsir iar pe 1 ,il resetez pe found si continui.
+Daca ajung cu indexul subsirului la final inseamna ca s-a gasit subsirul in sir si pun found-ul in edx.
+Daca am terminat de parcurs textul si nu am gasit subsirul in sir retrunez lungimea sirului + 1.
+La label-ul set_found scad ecx-ul cu 2 deoarece accesarea textului si subsirului se face cu un -1 la fiecare si se produce un decalaj.
+
+bin_to_hex:
+	Am calculat cate caractere trebuie sa aiba sirul de output
+scazand 4 din lungimea secventei pana cand aceasta devenea negativa sau egala cu 0.Folosindu-ma de lungimea secventei am pus caractere A in edx ca sa pot sa pun elemente la orice pozitie (a trebuit sa pun in edx elementele de la dreapta catre stanga. Faceam ceva de genul: AAA-> AA1 -> AD1->CD1
+Am parcurs secventa de biti de la dreapta la stanga.
+Puneam in al fiecare bit si verificam daca e 1 sau 0.
+Aveam un counter care imi indica numarul bitului pe care l-am pus in al.El ma ajuta cand faceam suma celor 4 biti(pe care o puneam in ebx)
+Daca bitul era 0 incrementam counter-ul de biti,verificam daca mai am biti in secventa si parcurgeam din nou
+Daca bitul era 1 atunci am folosit 4 cazuri(case1,case2..),unde cresteam ebx-ul
+cu (2 ^ numar_bit)
+Daca ajungeam la bitul 4 mergeam in label-ul convert unde cautam corespondentul sumei (stocata in ebx) in vectorul hexa_base,dupa care puneam elementul din hexa_base  in edx (de la dreapta catre stanga).Dupa ce puneam in edx scadeam counter-ul de elemente din edx si daca acesta imi spunea ca nu mai are elemente disponibile mergeam in exit unde puneam la sfarsitul sirului din edx newline(10 in ASCII).Dupa ce puneam in edx resetam counter-ul pe 1.
